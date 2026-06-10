@@ -1,0 +1,11 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+venv/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+reports/*.png
+colab_download_attempt.ipynb

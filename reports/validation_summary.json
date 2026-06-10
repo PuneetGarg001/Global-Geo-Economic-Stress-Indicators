@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "errors": [],
+  "warnings": [
+    "2013 scored rows use only one or two score components.",
+    "283 Severe rows use only one or two score components.",
+    "2025 has low average completeness; avoid making strong current-year claims."
+  ],
+  "row_count": 14322,
+  "country_count": 217,
+  "year_count": 66,
+  "min_year": 1960,
+  "max_year": 2025,
+  "duplicate_country_year_rows": 0,
+  "metadata_rows": 217,
+  "dictionary_rows": 27,
+  "scored_rows": 12762,
+  "unscored_rows": 1560,
+  "low_evidence_scored_rows": 2013,
+  "severe_low_evidence_rows": 283,
+  "average_completeness": 66.76,
+  "average_2025_completeness": 20.97,
+  "missing_percent": {
+    "country_code": 0.0,
+    "country_name": 0.0,
+    "iso3": 0.0,
+    "region": 0.0,
+    "income_group": 0.0,
+    "year": 0.0,
+    "gdp_growth": 21.7,
+    "inflation": 37.36,
+    "unemployment": 54.4,
+    "gdp_per_capita": 19.22,
+    "population": 1.72,
+    "food_production_index": 23.12,
+    "cereal_yield": 27.87,
+    "cereal_production_tonnes": 27.52,
+    "agricultural_land_pct": 15.79,
+    "dietary_energy_supply_adequacy": 73.25,
+    "economic_stress_score": 10.89,
+    "data_completeness_score": 0.0
+  },
+  "stress_category_counts": {
+    "Moderate": 5587,
+    "High": 5288,
+    "nan": 1560,
+    "Severe": 967,
+    "Low": 920
+  }
+}
