@@ -1,20 +1,37 @@
 # Global Geo-Economic Stress Indicators
 
-An analytical country-year dataset for studying economic and food-system stress across 217 countries from 1960 to 2025.
+A data analytics project that builds and explores a country-year panel of geo-economic stress indicators across 217 countries from 1960 to 2025.
 
-The project combines World Bank and FAOSTAT-derived indicators into a documented stress-score dataset with metadata, an indicator dictionary, a source notebook, and validation checks. It is designed as a final-year data analytics project and portfolio-ready GitHub repository.
+The project combines macroeconomic indicators and food-system signals from open data sources into an analytical stress-score dataset. It includes the original analysis notebook, processed datasets, metadata, and reproducible validation checks.
 
-The main source notebook is `notebooks/Global Geo-Economic Stress Indicators.ipynb`.
+## Overview
 
-## Project Highlights
+This repository is organized around one main notebook:
+
+`notebooks/Global Geo-Economic Stress Indicators.ipynb`
+
+The notebook covers:
+
+- data loading and merging
+- missing-value analysis
+- country-level and regional exploratory analysis
+- economic stress trend visualization
+- K-Means country segmentation
+- Random Forest based feature-importance analysis
+- model evaluation using MAE, R2, and regional performance checks
+- correlation analysis between selected indicators and stress scores
+
+## Dataset
+
+The processed dataset contains:
 
 - 14,322 country-year observations
 - 217 countries and economies
-- 1960-2025 panel coverage
-- Economic stress scoring from inflation, unemployment, GDP growth, income vulnerability, and food pressure components
-- EDA notebook with country trends, regional comparison, heatmaps, clustering, Random Forest feature importance, and regional model evaluation
-- Data dictionary with source, unit, interpretation, and missing-value notes
-- Validation script for schema checks, duplicate checks, score consistency, missingness, and evidence-level warnings
+- 66 years of coverage, from 1960 to 2025
+- country metadata including region, income group, latitude, and longitude
+- macroeconomic indicators including GDP growth, inflation, unemployment, GDP per capita, and population
+- food-system indicators including food production, cereal yield, cereal production, agricultural land share, and dietary energy supply adequacy
+- derived economic stress scores and stress categories
 
 ## Repository Structure
 
@@ -28,11 +45,6 @@ The main source notebook is `notebooks/Global Geo-Economic Stress Indicators.ipy
 |       |-- economic_stress_score.csv
 |       |-- indicator_dictionary.csv
 |       `-- validation_report.json
-|-- docs/
-|   |-- colab_note.md
-|   |-- linkedin_post.md
-|   |-- notebook_audit.md
-|   `-- project_review.md
 |-- notebooks/
 |   `-- Global Geo-Economic Stress Indicators.ipynb
 |-- reports/
@@ -50,62 +62,70 @@ The main source notebook is `notebooks/Global Geo-Economic Stress Indicators.ipy
 | File | Description |
 | --- | --- |
 | `country_metadata.csv` | Country metadata, region, income group, latitude, and longitude |
-| `country_year_indicators.csv` | Main country-year panel with original indicators and final stress score |
-| `economic_stress_score.csv` | Component scores and final stress category |
-| `indicator_dictionary.csv` | Definitions, source codes, units, and interpretation notes |
-| `validation_report.json` | Exported structural validation summary |
+| `country_year_indicators.csv` | Main country-year panel with indicators and final stress score |
+| `economic_stress_score.csv` | Component scores and stress categories |
+| `indicator_dictionary.csv` | Data dictionary with source, unit, and interpretation notes |
+| `validation_report.json` | Exported validation summary |
 
 ## Methodology
 
-The stress score is a derived analytical index using available macroeconomic and food-system components:
+The economic stress score is a derived analytical index based on available macroeconomic and food-system components:
 
 - inflation pressure
 - unemployment pressure
 - GDP growth weakness
 - income vulnerability
-- food production or supply pressure
+- food pressure
 
-Higher scores indicate higher estimated stress. The score is not an official World Bank, FAOSTAT, or government index.
+Higher values indicate higher estimated stress. The score is an analytical project output and should not be interpreted as an official index.
 
-The notebook also trains a Random Forest model using stress-related features. In the current version, this should be described as an explainability or score-approximation model because the target score is derived from related components. To turn it into a true predictive model, use lagged features and a time-based validation split.
+## Validation
 
-## Important Limitation
-
-Some country-year rows have incomplete component data. In the current export, rows can still receive a final score when only one or two components are available. This is useful for exploratory coverage, but it should be interpreted with caution. The validation script flags these low-evidence scores.
-
-For serious analysis, use `data_completeness_score` and component availability together with the final score.
-
-## Run Validation
+Run the validation script:
 
 ```bash
 pip install -r requirements.txt
 python src/validate_project.py
 ```
 
-This writes:
+The validation checks:
 
-- `reports/validation_summary.json`
-- `reports/data_quality_summary.md`
+- expected schema
+- duplicate country-year rows
+- year range
+- score consistency across files
+- missing-value percentages
+- low-evidence score warnings based on available score components
 
-## Current Quality Snapshot
+## Current Validation Snapshot
 
 - Validation status: passed
 - Duplicate country-year rows: 0
 - Scored rows: 12,762
-- Rows with only one or two score components: 2,013
-- Severe rows with only one or two score components: 283
-- Average completeness: 66.76%
+- Unscored rows: 1,560
+- Average data completeness: 66.76%
 - Average 2025 completeness: 20.97%
 
-## What I Learned
+## Limitations
 
-This project strengthened my skills in data cleaning, open-data integration, feature engineering, analytical index design, exploratory modeling, validation, and communicating uncertainty. A major lesson was that a strong data project should explain both the score and the confidence behind the score.
+Some years and countries have incomplete source data. Scores based on fewer available components should be interpreted carefully. The 2025 data is especially incomplete and should be treated as provisional.
 
-## Next Improvements
+The machine-learning section in the notebook is best interpreted as feature-importance and score-explanation analysis. For future forecasting, the project should use lagged features and time-based validation.
+
+## Tech Stack
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- SciPy
+
+## Future Improvements
 
 - Add confidence labels based on component availability
-- Refactor the notebook into clearer sections: data loading, cleaning, EDA, scoring, modeling, evaluation
-- Change the ML section into either score explainability or true forecasting
-- Add visualizations for trends, regions, and missingness
-- Add a reproducible data-ingestion pipeline from World Bank and FAOSTAT APIs
-- Add tests for scoring thresholds and category assignment
+- Refactor the notebook into a cleaner final-report version
+- Add time-based validation for forecasting experiments
+- Add dashboard-ready visualizations
+- Automate data collection from source APIs
